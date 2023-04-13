@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useRef} from "react";
 import './naver-sign-in.css';
 
 // App.tsx
@@ -6,19 +6,19 @@ import './naver-sign-in.css';
 
 function App() {
 
-  let [isIdCheck, setIdCheck] = useState<boolean>(false);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
-  let isIdCheck2 = false;
+  const [isIdCheck, setIdCheck] = useState<boolean>(false);
+  const [id, setId] = useState<string>('');
 
   const onSubmitHandler = () => {
-    // setIdCheck(!isIdCheck);
-
-    // isIdCheck2 = !isIdCheck2;
-    // console.log(isIdCheck2);
-    isIdCheck = !isIdCheck;
-    console.log(isIdCheck);
+    if (!id.trim()) {
+    setIdCheck(true);
+    return;
+    }
+    setIdCheck(false);
+    if (formRef.current) formRef.current.submit();
   }
-
 
   return (
     <>
@@ -40,6 +40,7 @@ function App() {
         <div className="content">
           <div className="sign-in-wrapper">
             <form
+            ref={formRef}
               id="form"
               action="https://nid.naver.com/nidlogin.login"
               method="POST"
@@ -60,7 +61,7 @@ function App() {
                           maxLength={41}
                           placeholder="아이디"
                           name="id"
-                          id="id"
+                          onChange={(event) => setId(event.target.value)}
                         />
                       </div>
                       <div className="input-row">
