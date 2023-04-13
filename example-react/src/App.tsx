@@ -6,9 +6,18 @@ import './naver-sign-in.css';
 
 function App() {
 
-  const [isIdCheck, setIdCheck] = useState<boolean>(false);
+  let [isIdCheck, setIdCheck] = useState<boolean>(false);
 
-  const onSubmitHandler = () => {}
+  let isIdCheck2 = false;
+
+  const onSubmitHandler = () => {
+    // setIdCheck(!isIdCheck);
+
+    // isIdCheck2 = !isIdCheck2;
+    // console.log(isIdCheck2);
+    isIdCheck = !isIdCheck;
+    console.log(isIdCheck);
+  }
 
 
   return (
